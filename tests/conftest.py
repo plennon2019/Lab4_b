@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 from app.database import get_db
 from app.main import app
-from app.models import BASE
+from app.models import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
@@ -30,9 +30,9 @@ app.dependency_overrides[get_db] = override_get_db
 
 @pytest.fixture(autouse=True)
 def reset_database():
-    BASE.metadata.create_all(bind=test_engine)
+    Base.metadata.create_all(bind=test_engine)
     yield
-    BASE.metadata.drop_all(bind=test_engine)
+    Base.metadata.drop_all(bind=test_engine)
 
 @pytest.fixture
 def client():
